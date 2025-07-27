@@ -12,6 +12,7 @@
 
         h1 {
             text-align: center;
+            font-size: 5em;
         }
 
         section {
@@ -22,6 +23,11 @@
             border-bottom: 2px solid #ccc;
             padding-bottom: 0.3rem;
             margin-bottom: 1rem;
+            color: #362f6d;
+            font-size: 4em;
+            padding: 0.2em;
+            background-color: #bfbfbf;
+            border-radius: 0.2em;
         }
 
         .item {
@@ -29,17 +35,27 @@
         }
 
         .item-title {
-            font-weight: bold;
+            font-size: 2em;
         }
 
         .clients {
             margin-left: 1rem;
             color: #555;
+            font-size: 1em;
         }
 
         button {
             display: block;
             margin: auto;
+            font-size: 4em;
+        }
+
+        .quantite{
+            color: #bd0808;
+        }
+
+        .liste{
+
         }
     </style>
 </head>
@@ -49,35 +65,20 @@
     <button onclick="updateCommandes()">Rafraichir les commandes</button>
     <section id="plat">
         <h2>Plats</h2>
-        <div id="liste_plat"></div>
+        <div id="liste_plat" class="list"></div>
     </section>
 
     <section id="dessert">
         <h2>Desserts</h2>
-        <div id="liste_dessert"></div>
+        <div id="liste_dessert" class="list"></div>
     </section>
 
     <section id="boisson">
         <h2>Boissons</h2>
-        <div id="liste_boisson"></div>
+        <div id="liste_boisson" class="list"></div>
     </section>
 
     <script>
-        // Exemple de données à injecter (à remplacer par google.script.run)
-        /*const commandes = {
-            plats: [
-                { nom: "Poulet rôti", quantite: 3, clients: ["Alice", "Bob", "David"] },
-                { nom: "Lasagnes", quantite: 2, clients: ["Charlie", "Eve"] }
-            ],
-            desserts: [
-                { nom: "Tarte aux pommes", quantite: 2, clients: ["Alice", "David"] },
-                { nom: "Mousse au chocolat", quantite: 1, clients: ["Eve"] }
-            ],
-            boissons: [
-                { nom: "Coca", quantite: 2, clients: ["Bob", "Charlie"] },
-                { nom: "Eau gazeuse", quantite: 1, clients: ["Alice"] }
-            ]
-        };*/
 
         let commandes = {};
 
@@ -120,7 +121,7 @@
                     const div = document.createElement("div");
                     div.className = "item";
                     div.innerHTML = `
-              <div class="item-title">${item.nom} — <em>${item.quantite} commande(s)</em></div>
+              <div class="item-title">${item.nom} <span class="quantite">x ${item.quantite}</span></div>
               <div class="clients">Clients : ${item.clients.join(", ")}</div>
             `;
                     section.appendChild(div);
