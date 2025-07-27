@@ -8,11 +8,12 @@
         body {
             font-family: Arial, sans-serif;
             margin: 2rem;
+            font-size: 1rem;
         }
 
         h1 {
             text-align: center;
-            font-size: 5em;
+            font-size: 5rem;
         }
 
         section {
@@ -24,10 +25,10 @@
             padding-bottom: 0.3rem;
             margin-bottom: 1rem;
             color: #362f6d;
-            font-size: 4em;
-            padding: 0.2em;
+            font-size: 4rem;
+            padding: 1rem;
             background-color: #bfbfbf;
-            border-radius: 0.2em;
+            border-radius: 1rem;
         }
 
         .item {
@@ -35,27 +36,39 @@
         }
 
         .item-title {
-            font-size: 2em;
+            font-size: 3rem;
         }
 
         .clients {
             margin-left: 1rem;
             color: #555;
-            font-size: 1em;
+            font-size: 2rem;
+            background-color: #d1f1ff;
+            padding: 0.5rem;
+            border-radius: 1rem;
         }
 
         button {
             display: block;
             margin: auto;
-            font-size: 4em;
+            font-size: 4rem;
         }
 
-        .quantite{
+        .quantite {
             color: #bd0808;
         }
 
-        .liste{
+        .liste {}
 
+        #loading {
+            display: none;
+            font-size: 2rem;
+            color: #a11c1c;
+            font-weight: bold;
+            text-align: center;
+            margin: auto;
+            margin-top: 2rem;
+            font-style: italic;
         }
     </style>
 </head>
@@ -63,6 +76,7 @@
 <body>
     <h1>Liste des commandes</h1>
     <button onclick="updateCommandes()">Rafraichir les commandes</button>
+    <span id="loading">Chargement en cours</span>
     <section id="plat">
         <h2>Plats</h2>
         <div id="liste_plat" class="list"></div>
@@ -81,8 +95,10 @@
     <script>
 
         let commandes = {};
+        const loading = document.getElementById("loading");
 
         async function updateCommandes() {
+            loading.style.display = "block";
             commandes = {
                 plat: [],
                 dessert: [],
@@ -110,6 +126,7 @@
             })
 
             afficherCommandes();
+            loading.style.display = "none";
         }
 
 
