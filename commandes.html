@@ -105,12 +105,12 @@
                 dessert: [],
                 boisson: []
             }
-            const response = await fetch("https://script.google.com/macros/s/AKfycbzIAldfZEI0iGrjV6DWx6lDG5tUK9ilFGxGOu9Fk2UOTu2awJa-uaYRNHltTIJ6N6rQ/exec")
+            const response = await fetch("https://script.google.com/macros/s/AKfycbzs2KF_YlL_kf90gRXGJkOtNPHq0BmK1swHT6xOdRduQZeESx8jVIduX7zdQfG-o8ou/exec")
             const data = await response.json();
             console.log(data);
 
             data.forEach(commande => {
-                ["plat", "boisson", "dessert"].forEach(categorie => {
+                ["plat", "boisson"].forEach(categorie => {
                     if (commande[categorie] != "Rien") {
                         if (commandes[categorie].some(item => item.nom === commande[categorie])) {
                             commandes[categorie].find(item => item.nom === commande[categorie]).quantite++;
@@ -124,6 +124,21 @@
                         }
                     }
                 })
+
+                if (commande.dessert.parfum != "Rien") {
+                    const foundIndex = commandes.dessert.findIndex(item => item.nom === commande.dessert.parfum + "-" + commande.dessert.conditionnement);
+
+                    if (foundIndex!=-1) {
+                        commandes.dessert[foundIndex].quantite++;
+                        commandes.dessert[foundIndex].clients.push(commande.client);
+                    } else {
+                        commandes.dessert.push({
+                            nom: commande.dessert.parfum + "-" + commande.dessert.conditionnement,
+                            quantite: 1,
+                            clients: [commande.client]
+                        });
+                    }
+                }
             })
 
             afficherCommandes();
