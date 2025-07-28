@@ -1,0 +1,150 @@
+
+<html>
+	<head>
+		<title>Razoon Kids</title>
+			<style>
+				body{
+					background-color:#d8da3d}
+				body{font-family:arial}
+				body{font-size:1.2rem}
+				h1{
+					text-align: center;
+					font-family: "Source Sans Pro",sans-serif;
+					font-weight: normal;
+					border: solid red;
+					width: 6em;
+					margin: auto;
+					margin-bottom: 30;
+					background: beige;
+				}
+				h2{
+				display:inline;
+				margin-right:2em;
+				}
+				h3,h4,h5{font-family:arial;font-size:1.2rem;
+				display:inline;}
+				h3 {margin-right:1em}
+				h4,h5 {margin-right:1em}
+				button:hover{
+					background-color:green;
+					}
+				button{
+					display:block;
+					margin:auto;
+					margin-top:45px;
+					font-family:arial;font-size:1.2rem;}
+				select{font-family:arial;font-size:1.2rem;
+				}
+				#popup{background-color:white;border:red solid;position:absolute;top:200px;display:none;}
+				#popup button{background-color:blue;margin-top:1px;}
+			</style>
+	</head>
+	<body>
+		<h1>Razoon Kids</h1>
+		<h2>Prénom</h2>
+		<select id="Prenom">
+			<option >Paco</option>
+			<option >Mayève</option>
+			<option >Marie</option>
+			<option >Nicolas</option>
+			<option >Sophie</option>
+			<option >Matthieu</option>
+			<option >Dominique</option>
+			<option >Antoine</option>
+			<option >Karine</option>
+			<option >Alexandre</option>
+			<option >Marion</option>
+		</select>
+		<br/>
+		<br/>
+		<br/>
+		
+		<h3>Plats</h3>
+		<select id="Plat">
+			<option >Hamburger Condor</option>
+			<option >Hamburger Tisserin</option>
+			<option >Hamburger Taureau</option>
+			<option >Hamburger Gecko</option>
+			<option >Hamburger Ecureuil</option>
+			<option >Rien</option>
+		</select>
+		<br/>
+		<br/>
+		<br/>
+		<h4>Desserts</h4>
+		<select id="Parfum">
+			<option >Chocolat</option>
+			<option >Vanille</option>
+			<option >Framboise</option>
+			<option >Caramel</option>
+			<option >Café</option>
+			<option >Pistache</option>
+			<option >Rien</option>
+		</select>
+		<select id="condt">
+			<option >Cornet</option>
+			<option >Pot</option>
+		</select>
+		<br/>
+		<br/>
+		<br/>
+		<h5>Boisson</h5>
+		<select id="Boisson">
+			<option >Lipton</option>
+			<option >Cocacola</option>
+			<option >Vin rouge</option>
+			<option >Vin blanc</option>
+			<option >Vin 0% alcool</option>
+			<option >Rien</option>
+		</select>
+		
+		<button onclick="commande()">Je commande</button>
+		
+		<div id="popup">
+		Votre commande est prise en compte
+		<button onclick="fermer()">Fermer</button>
+		</div>
+
+	<script>
+		const popup=document.getElementById("popup");
+		
+		
+		async function commande(){
+		//envoyer le requete post
+		const prenom=document.getElementById("Prenom").value;
+		const plat=document.getElementById("Plat").value;
+		const parfum=document.getElementById("Parfum").value;
+		const conditionnement=document.getElementById("condt").value;
+		const boisson=document.getElementById("Boisson").value;
+		const payload={
+		"client":prenom,
+		"plat":plat,
+		"dessert":{
+			"parfum":parfum,
+			"conditionnement":conditionnement},
+		"boisson":boisson
+		}
+		
+		const reponse= await fetch("https://script.google.com/macros/s/AKfycbzs2KF_YlL_kf90gRXGJkOtNPHq0BmK1swHT6xOdRduQZeESx8jVIduX7zdQfG-o8ou/exec",{
+		redirect:"follow",
+		method:"POST",
+		body:JSON.stringify(payload),
+		headers:{
+			'Content-Type':"text/plain;charset=utf-8"
+		}
+		});
+		
+		if(reponse.status==200){
+		popup.style.display="block";
+		}
+		
+		
+		}
+		
+		
+		function fermer(){
+		popup.style.display="none";
+		}
+	</script>
+	</body>
+</html>
